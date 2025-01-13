@@ -1,0 +1,17 @@
+.header {
+    background: #444451;
+    width: 100%;
+    padding: 24px;
+    position: sticky;
+    top: 0;
+}
+
+.header nav {
+    display: flex;
+    gap: 12px;
+}
+
+.header nav a {
+    color: #fff;
+    text-decoration: none;
+}
