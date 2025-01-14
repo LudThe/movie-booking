@@ -1,5 +1,5 @@
 .header {
-    background: #444451;
+    background: var(--dark-gray);
     width: 100%;
     padding: 24px;
     position: sticky;
@@ -12,6 +12,6 @@
 }
 
 .header nav a {
-    color: #fff;
+    color: var(--white);
     text-decoration: none;
 }

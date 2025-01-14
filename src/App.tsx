@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router"
 import Header from "./components/Header/Header"
-import BookingPage from "./pages/BookingPage"
-import AdminPage from "./pages/AdminPage"
+import BookingPage from "./pages/BookingPage/BookingPage"
+import AdminPage from "./pages/AdminPage/AdminPage"
 
 export default function App() {
 
