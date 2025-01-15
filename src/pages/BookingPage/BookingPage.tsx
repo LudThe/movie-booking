@@ -36,21 +36,21 @@ export default function BookingPage() {
 
 
   function handleSeatAvailability(seatId: number) {
-    let temp: string = "free";
+    let tempSeat: string = "free";
 
     selectedMovie?.BookedSeats.forEach(seat => {
       if (seat == seatId) {
-        temp = "occupied"
+        tempSeat = "occupied"
       }
     });
 
     selectedSeats.forEach(seat => {
       if (seat == seatId) {
-        temp = "selected"
+        tempSeat = "selected"
       }
     });
 
-    return temp;
+    return tempSeat;
   }
 
 
@@ -83,7 +83,7 @@ export default function BookingPage() {
             id="movie"
           >
             {movies.map((movie) => (
-              <option key={movie.Id} value={movie.Id}>{`${movie.Title} (${movie.Price}kr)`}</option>
+              <option key={movie.Id} value={movie.Id}>{`${movie.Title} (${movie.Price} kr)`}</option>
             ))}
           </select>
         </div>
@@ -109,27 +109,40 @@ export default function BookingPage() {
 
 
       {selectedMovie != null ?
-        <div className={styles.theaterContainer}>
-          <div className={styles.screen}></div>
+        <>
 
-          {Array.from({ length: rows }).map((_, rowIndex) => (
-            <div key={rowIndex} className={styles.row}>
-              {Array.from({ length: seatsPerRow }).map((_, seatIndex) => {
-                const seatId = rowIndex * seatsPerRow + seatIndex + 1;
-                return seatId <= totalSeats ? (
-                  <div
-                    key={seatId}
-                    className={styles.seat}
-                    data-seat-id={seatId}
-                    data-availability={handleSeatAvailability(seatId)}
-                    onClick={(e) => handleSeatSelect(e)}
-                  ></div>
-                ) : null;
-              })}
-            </div>
-          ))}
+          <div className={styles.theaterContainer}>
+            <div className={styles.screen}></div>
 
-        </div> : null
+            {Array.from({ length: rows }).map((_, rowIndex) => (
+              <div key={rowIndex} className={styles.row}>
+                {Array.from({ length: seatsPerRow }).map((_, seatIndex) => {
+                  const seatId = rowIndex * seatsPerRow + seatIndex + 1;
+                  return seatId <= totalSeats ? (
+                    <div
+                      key={seatId}
+                      className={styles.seat}
+                      data-seat-id={seatId}
+                      data-availability={handleSeatAvailability(seatId)}
+                      onClick={(e) => handleSeatSelect(e)}
+                    ></div>
+                  ) : null;
+                })}
+              </div>
+            ))}
+
+          </div>
+
+
+          <p className="text">
+            You have selected
+            <span> {selectedSeats.length} </span>
+            seats for a price of
+            <span> {selectedSeats.length * selectedMovie?.Price} </span>
+            kr
+          </p>
+
+        </> : null
       }
 
     </div>
