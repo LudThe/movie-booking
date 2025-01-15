@@ -10,7 +10,7 @@ export default function BookingPage() {
 
   const totalSeats: number = 48;
   const seatsPerRow: number = 8;
-  const rows: number = Math.ceil(totalSeats / seatsPerRow);
+  const rows: number = totalSeats / seatsPerRow;
 
 
   useEffect(() => {
@@ -31,30 +31,42 @@ export default function BookingPage() {
   function handleMovieSelect(e: React.ChangeEvent<HTMLSelectElement>) {
     let tempMovie = movies.find((el) => el.Id == e.target.value);
     setSelectedMovie(tempMovie);
+    setSelectedSeats([]);
   }
 
 
-  function handleSeatSelect(seatId: number) {
-    console.log(seatId);
-  }
-
-
-  function handleSeatStyling(seatId: number) {
-    let tempClassName: string = styles.seat;
+  function handleSeatAvailability(seatId: number) {
+    let temp: string = "free";
 
     selectedMovie?.BookedSeats.forEach(seat => {
       if (seat == seatId) {
-        tempClassName += ` ${styles.occupied}`;
+        temp = "occupied"
       }
     });
 
     selectedSeats.forEach(seat => {
       if (seat == seatId) {
-        tempClassName += ` ${styles.selected}`;
+        temp = "selected"
       }
     });
 
-    return tempClassName;
+    return temp;
+  }
+
+
+  function handleSeatSelect(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    let tempSeat: DOMStringMap = e.currentTarget.dataset;
+    let tempAvailability: string | undefined = tempSeat.availability;
+    let tempSeatId: number = parseInt(tempSeat.seatId || '');
+
+    if (tempAvailability == "free") {
+      setSelectedSeats([...selectedSeats, tempSeatId]);
+    }
+
+    if (tempAvailability == "selected") {
+      let filtered: number[] = selectedSeats.filter((seat) => seat !== tempSeatId);
+      setSelectedSeats(filtered);
+    }
   }
 
 
@@ -68,7 +80,8 @@ export default function BookingPage() {
             value={selectedMovie?.Id}
             onChange={e => handleMovieSelect(e)}
             name="movie"
-            id="movie">
+            id="movie"
+          >
             {movies.map((movie) => (
               <option key={movie.Id} value={movie.Id}>{`${movie.Title} (${movie.Price}kr)`}</option>
             ))}
@@ -106,8 +119,10 @@ export default function BookingPage() {
                 return seatId <= totalSeats ? (
                   <div
                     key={seatId}
-                    className={handleSeatStyling(seatId)}
-                    onClick={() => handleSeatSelect(seatId)}
+                    className={styles.seat}
+                    data-seat-id={seatId}
+                    data-availability={handleSeatAvailability(seatId)}
+                    onClick={(e) => handleSeatSelect(e)}
                   ></div>
                 ) : null;
               })}

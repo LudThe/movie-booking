@@ -39,11 +39,13 @@
     border-top-right-radius: 10px;
 }
 
-.seat.selected {
+.seat.selected,
+.seat[data-availability="selected"] {
     background-color: var(--blue);
 }
 
-.seat.occupied {
+.seat.occupied,
+.seat[data-availability="occupied"] {
     background-color: var(--white);
 }
 
@@ -55,12 +57,13 @@
     margin-left: 18px;
 }
 
-.seat:not(.occupied):hover {
+.seat:not([data-availability="occupied"]):hover {
     cursor: pointer;
     transform: scale(1.2);
 }
 
-.showcase .seat:not(.occupied):hover {
+.showcase .seat:not(.occupied):hover,
+.showcase .seat:not([data-availability="occupied"]):hover {
     cursor: default;
     transform: scale(1);
 }
