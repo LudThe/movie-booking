@@ -7,8 +7,8 @@
   --dark-gray: #444451;
   --medium-gray: #777;
   --blue: #6feaf6;
+  --red: #B3001B;
 }
-
 
 * {
   box-sizing: border-box;
@@ -37,4 +37,24 @@ p.text {
 
 p.text span {
   color: var(--blue);
+}
+
+a.active {
+  text-decoration: underline !important;
+}
+
+button {
+  font-family: inherit;
+  padding: 6px 10px;
+  background: var(--blue);
+  color: var(--white);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  color: var(--medium-gray);
+  background: var(--dark-gray);
 }

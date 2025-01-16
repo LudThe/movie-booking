@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { Movie } from "../../types/Movie";
 import { fetchMovies } from "../../api/api";
+import BookingForm from "../../components/BookingForm/BookingForm";
 import styles from "./booking-page.module.css";
 
 export default function BookingPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie>();
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
+  const dialogRef = useRef<HTMLDialogElement>(null);
 
   const totalSeats: number = 48;
   const seatsPerRow: number = 8;
@@ -66,6 +68,15 @@ export default function BookingPage() {
     if (tempAvailability == "selected") {
       let filtered: number[] = selectedSeats.filter((seat) => seat !== tempSeatId);
       setSelectedSeats(filtered);
+    }
+  }
+
+
+  function toggleDialog() {
+    if (dialogRef.current) {
+      dialogRef.current.hasAttribute("open") ?
+        dialogRef.current.close() :
+        dialogRef.current.showModal();
     }
   }
 
@@ -141,6 +152,22 @@ export default function BookingPage() {
             <span> {selectedSeats.length * selectedMovie?.Price} </span>
             kr
           </p>
+
+
+          <button
+            className={styles.bookBtn}
+            onClick={toggleDialog}
+            disabled={selectedSeats.length > 0 ? false : true}
+          >
+            Book seats
+          </button>
+
+          <BookingForm
+            selectedMovie={selectedMovie}
+            selectedSeats={selectedSeats}
+            toggleDialog={toggleDialog}
+            ref={dialogRef}
+          />
 
         </> : null
       }
