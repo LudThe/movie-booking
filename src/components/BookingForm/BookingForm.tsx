@@ -1,6 +1,9 @@
 import { forwardRef } from 'react';
+import { useNavigate } from 'react-router';
 import { FieldValues, useForm } from 'react-hook-form';
 import { Movie } from '../../types/Movie';
+import { Booking } from '../../types/Booking';
+import { addBooking } from '../../api/api';
 import styles from './booking-form.module.css'
 
 type Props = {
@@ -11,11 +14,24 @@ type Props = {
 
 
 export default forwardRef<HTMLDialogElement, Props>(function BookingForm({ selectedMovie, selectedSeats, toggleDialog }, ref) {
-    const { register, handleSubmit, formState: { errors, isSubmitSuccessful } } = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    let navigate = useNavigate();
 
+    async function onSubmit(data: FieldValues) {
+        const newBooking: Booking = {
+            movieId: selectedMovie.id!,
+            name: data.name,
+            phoneNumber: data.phone,
+            bookedSeats: [...selectedSeats]
+        }
 
-    function onSubmit(data: FieldValues) {
-        console.log(data)
+        const res = await addBooking(newBooking);
+
+        if (res) {
+            navigate("/success/booking");
+        } else {
+            alert("Something went wrong")
+        }
     }
 
 

@@ -1,40 +1,51 @@
 {
     "movies": [
         {
-            "Id": "1",
-            "Title": "The Lion King",
-            "Price": 100,
-            "BookedSeats": [
+            "id": "1",
+            "title": "The Lion King",
+            "price": 100
+        },
+        {
+            "id": "2",
+            "title": "Doctor Strange",
+            "price": 120
+        },
+        {
+            "id": "3",
+            "title": "John Wick",
+            "price": 60
+        }
+    ],
+    "bookings": [
+        {
+            "id": "1",
+            "movieId": "1",
+            "name": "Emily Johnson",
+            "phoneNumber": "070-6542342",
+            "bookedSeats": [
                 1,
                 2
             ]
         },
         {
-            "Id": "2",
-            "Title": "Mowgli: Legend of the Jungle",
-            "Price": 40,
-            "BookedSeats": [
+            "id": "2",
+            "movieId": "1",
+            "name": "Michael Smith",
+            "phoneNumber": "070-1276542",
+            "bookedSeats": [
+                4,
+                5
+            ]
+        },
+        {
+            "id": "3",
+            "movieId": "2",
+            "name": "Sarah Williams",
+            "phoneNumber": "070-1282442",
+            "bookedSeats": [
                 4,
                 5,
                 6
-            ]
-        },
-        {
-            "Id": "3",
-            "Title": "Doctor Strange",
-            "Price": 120,
-            "BookedSeats": [
-                7
-            ]
-        },
-        {
-            "Id": "4",
-            "Title": "John Wick",
-            "Price": 60,
-            "BookedSeats": [
-                8,
-                9,
-                14
             ]
         }
     ]

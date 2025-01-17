@@ -1,6 +1,5 @@
 export type Movie = {
-    Id: string,
-    Title: string,
-    Price: number,
-    BookedSeats: number[]
+    id?: string,
+    title: string,
+    price: number
 }

@@ -1,11 +1,13 @@
 import { useEffect, useState, useRef } from "react"
 import { Movie } from "../../types/Movie";
-import { fetchMovies } from "../../api/api";
+import { Booking } from "../../types/Booking";
+import { fetchMovies, fetchBookingsByMovieId } from "../../api/api";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import styles from "./booking-page.module.css";
 
 export default function BookingPage() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [bookings, setBookings] = useState<Booking[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<Movie>();
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -26,12 +28,23 @@ export default function BookingPage() {
 
 
   useEffect(() => {
-    setSelectedMovie(movies[0])
+    if (movies.length > 0) {
+      setSelectedMovie(movies[0])
+      getBookings(movies[0].id!)
+    }
   }, [movies]);
 
 
+  async function getBookings(movieId: string) {
+    const fetchedBookings = await fetchBookingsByMovieId(movieId);
+    setBookings(fetchedBookings);
+  }
+
+
   function handleMovieSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-    let tempMovie = movies.find((el) => el.Id == e.target.value);
+    let tempMovie = movies.find((el) => el.id == e.target.value);
+
+    getBookings(tempMovie?.id!)
     setSelectedMovie(tempMovie);
     setSelectedSeats([]);
   }
@@ -40,10 +53,12 @@ export default function BookingPage() {
   function handleSeatAvailability(seatId: number) {
     let tempSeat: string = "free";
 
-    selectedMovie?.BookedSeats.forEach(seat => {
-      if (seat == seatId) {
-        tempSeat = "occupied"
-      }
+    bookings.forEach((booking) => {
+      booking.bookedSeats.forEach((seat) => {
+        if (seat == seatId) {
+          tempSeat = "occupied"
+        }
+      });
     });
 
     selectedSeats.forEach(seat => {
@@ -88,13 +103,13 @@ export default function BookingPage() {
         <div className={styles.movieContainer}>
           <label htmlFor="movie">Pick a movie:</label>
           <select
-            value={selectedMovie?.Id}
+            value={selectedMovie?.id}
             onChange={e => handleMovieSelect(e)}
             name="movie"
             id="movie"
           >
             {movies.map((movie) => (
-              <option key={movie.Id} value={movie.Id}>{`${movie.Title} (${movie.Price} kr)`}</option>
+              <option key={movie.id} value={movie.id}>{`${movie.title} (${movie.price} kr)`}</option>
             ))}
           </select>
         </div>
@@ -149,7 +164,7 @@ export default function BookingPage() {
             You have selected
             <span> {selectedSeats.length} </span>
             seats for a price of
-            <span> {selectedSeats.length * selectedMovie?.Price} </span>
+            <span> {selectedSeats.length * selectedMovie?.price} </span>
             kr
           </p>
 
