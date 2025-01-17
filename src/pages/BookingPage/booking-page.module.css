@@ -5,25 +5,6 @@
     align-items: center;
 }
 
-
-.movieContainer {
-    margin: 20px 0;
-}
-
-.movieContainer select {
-    background-color: var(--white);
-    border: 0;
-    border-radius: 5px;
-    font-size: 14px;
-    font-family: inherit;
-    margin-left: 10px;
-    padding: 5px 15px;
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-
 .theaterContainer {
     perspective: 1000px;
     margin-bottom: 30px;

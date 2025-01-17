@@ -65,7 +65,7 @@ export default forwardRef<HTMLDialogElement, Props>(function BookingForm({ selec
                                 })}
                         />
 
-                        <small className={styles.error}>{errors.phone?.message?.toString()}</small>
+                        <small className="error">{errors.phone?.message?.toString()}</small>
                     </div>
 
 
@@ -76,7 +76,7 @@ export default forwardRef<HTMLDialogElement, Props>(function BookingForm({ selec
                             {...register("name", { required: "Name required" })}
                         ></input>
 
-                        <small className={styles.error}>{errors.name?.message?.toString()}</small>
+                        <small className="error">{errors.name?.message?.toString()}</small>
                     </div>
 
 

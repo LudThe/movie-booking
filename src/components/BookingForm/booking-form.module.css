@@ -3,7 +3,6 @@ dialog {
 }
 
 .booking {
-    border: solid 1px white;
     width: 320px;
     display: flex;
     flex-direction: column;
@@ -13,30 +12,6 @@ dialog {
     align-self: flex-end;
 }
 
-.booking form {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-}
-
-.booking form>div {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-input[type="email"],
-input[type="text"] {
-    padding: 8px;
-    background-color: var(--white);
-    border-radius: 5px;
-}
-
 .booking form button:last-of-type {
     align-self: center;
-}
-
-.error {
-    color: var(--red);
 }

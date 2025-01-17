@@ -58,3 +58,47 @@ button:disabled {
   color: var(--medium-gray);
   background: var(--dark-gray);
 }
+
+.movie-container {
+  margin: 20px 0;
+}
+
+.movie-container select {
+  background-color: var(--white);
+  border: 0;
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-left: 10px;
+  padding: 5px 15px;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+form>div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+input[type="email"],
+input[type="text"],
+input[type="number"] {
+  padding: 8px;
+  background-color: var(--white);
+  border-radius: 5px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.error {
+  color: var(--red);
+}

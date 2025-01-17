@@ -100,7 +100,7 @@ export default function BookingPage() {
     <div className={styles.booking}>
 
       {movies.length > 0 ?
-        <div className={styles.movieContainer}>
+        <div className="movie-container">
           <label htmlFor="movie">Pick a movie:</label>
           <select
             value={selectedMovie?.id}
