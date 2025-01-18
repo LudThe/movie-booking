@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from "react"
 import { Movie } from "../../types/Movie";
 import { Booking } from "../../types/Booking";
 import { fetchMovies, fetchBookingsByMovieId } from "../../api/api";
+import MovieSelect from "../../components/MovieSelect/MovieSelect";
 import BookingForm from "../../components/BookingForm/BookingForm";
 import styles from "./booking-page.module.css";
 
@@ -99,22 +100,12 @@ export default function BookingPage() {
   return (
     <div className={styles.booking}>
 
-      {movies.length > 0 ?
-        <div className="movie-container">
-          <label htmlFor="movie">Pick a movie:</label>
-          <select
-            value={selectedMovie?.id}
-            onChange={e => handleMovieSelect(e)}
-            name="movie"
-            id="movie"
-          >
-            {movies.map((movie) => (
-              <option key={movie.id} value={movie.id}>{`${movie.title} (${movie.price} kr)`}</option>
-            ))}
-          </select>
-        </div>
-        : null
-      }
+      <MovieSelect
+        movies={movies}
+        selectedMovie={selectedMovie}
+        handleMovieSelect={handleMovieSelect}
+        addNew={false}
+      />
 
 
       <ul className={styles.showcase}>

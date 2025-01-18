@@ -59,23 +59,6 @@ button:disabled {
   background: var(--dark-gray);
 }
 
-.movie-container {
-  margin: 20px 0;
-}
-
-.movie-container select {
-  background-color: var(--white);
-  border: 0;
-  border-radius: 5px;
-  font-size: 14px;
-  font-family: inherit;
-  margin-left: 10px;
-  padding: 5px 15px;
-  -moz-appearance: none;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
 form {
   display: flex;
   flex-direction: column;

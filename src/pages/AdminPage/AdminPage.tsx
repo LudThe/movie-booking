@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../../types/Movie";
 import { fetchMovies } from "../../api/api";
+import MovieSelect from "../../components/MovieSelect/MovieSelect";
 import { FieldValues, useForm } from 'react-hook-form';
 import styles from "./admin-page.module.css";
 
@@ -58,23 +59,12 @@ export default function AdminPage() {
     return (
         <div className={styles.adminPage}>
 
-            {movies.length > 0 ?
-                <div className="movie-container">
-                    <label htmlFor="movie">Pick a movie:</label>
-                    <select
-                        value={selectedMovie?.id}
-                        onChange={e => handleMovieSelect(e)}
-                        name="movie"
-                        id="movie"
-                    >
-                        <option value={0}>Add new movie</option>
-                        {movies.map((movie) => (
-                            <option key={movie.id} value={movie.id}>{`${movie.title} (${movie.price} kr)`}</option>
-                        ))}
-                    </select>
-                </div>
-                : null
-            }
+            <MovieSelect
+                movies={movies}
+                selectedMovie={selectedMovie}
+                handleMovieSelect={handleMovieSelect}
+                addNew={true}
+            />
 
 
             <div className={styles.formContainer}>
