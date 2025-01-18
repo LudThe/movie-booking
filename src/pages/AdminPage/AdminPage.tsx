@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import { Movie } from "../../types/Movie";
-import { fetchMovies } from "../../api/api";
+import { fetchMovies, addMovie, updateMovie, deleteMovie } from "../../api/api";
 import MovieSelect from "../../components/MovieSelect/MovieSelect";
 import { FieldValues, useForm } from 'react-hook-form';
+import { useNavigate } from "react-router";
 import styles from "./admin-page.module.css";
 
 export default function AdminPage() {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
+    let navigate = useNavigate();
     const [movies, setMovies] = useState<Movie[]>([]);
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
@@ -32,29 +34,49 @@ export default function AdminPage() {
 
     async function onSubmit(data: FieldValues) {
         if (selectedMovie != null) {
+            const updatedMovie: Movie = {
+                id: selectedMovie.id,
+                title: data.title,
+                price: data.price
+            }
+
+            const res = await updateMovie(updatedMovie);
+
+            if (res) {
+                navigate("/success/update-movie");
+            } else {
+                alert("Something went wrong")
+            }
 
         } else {
+            const newMovie: Movie = {
+                title: data.title,
+                price: data.price
+            }
 
-            // const newMovie: Movie = {
+            const res = await addMovie(newMovie);
 
-            // }
-
-            // const res = await addBooking(newBooking);
-
-            // if (res) {
-            //     navigate("/success/booking");
-            // } else {
-            //     alert("Something went wrong")
-            // }
+            if (res) {
+                navigate("/success/add-movie");
+            } else {
+                alert("Something went wrong")
+            }
         }
     }
 
 
-    async function deleteMovie() {
-        console.log("delete")
+    async function onClickDelete() {
+        if (selectedMovie) {
+            const res = await deleteMovie(selectedMovie);
+
+            if (res) {
+                navigate("/success/delete-movie");
+            } else {
+                alert("Something went wrong")
+            }
+        }
     }
 
-    console.log(selectedMovie)
 
     return (
         <div className={styles.adminPage}>
@@ -96,7 +118,7 @@ export default function AdminPage() {
                 </form>
 
                 <button
-                    onClick={deleteMovie}
+                    onClick={onClickDelete}
                     disabled={selectedMovie == null ? true : false}
                 >
                     Delete

@@ -28,7 +28,7 @@ export default forwardRef<HTMLDialogElement, Props>(function BookingForm({ selec
         const res = await addBooking(newBooking);
 
         if (res) {
-            navigate("/success/booking");
+            navigate("/success/add-booking");
         } else {
             alert("Something went wrong")
         }
