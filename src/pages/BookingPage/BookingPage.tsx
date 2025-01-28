@@ -43,9 +43,9 @@ export default function BookingPage() {
 
 
   function handleMovieSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-    let tempMovie = movies.find((el) => el.id == e.target.value);
+    const tempMovie = movies.find((el) => el.id == e.target.value);
 
-    getBookings(tempMovie?.id!)
+    getBookings(tempMovie?.id ? tempMovie?.id : "")
     setSelectedMovie(tempMovie);
     setSelectedSeats([]);
   }
@@ -73,16 +73,16 @@ export default function BookingPage() {
 
 
   function handleSeatSelect(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    let tempSeat: DOMStringMap = e.currentTarget.dataset;
-    let tempAvailability: string | undefined = tempSeat.availability;
-    let tempSeatId: number = parseInt(tempSeat.seatId || '');
+    const tempSeat: DOMStringMap = e.currentTarget.dataset;
+    const tempAvailability: string | undefined = tempSeat.availability;
+    const tempSeatId: number = parseInt(tempSeat.seatId || '');
 
     if (tempAvailability == "free") {
       setSelectedSeats([...selectedSeats, tempSeatId]);
     }
 
     if (tempAvailability == "selected") {
-      let filtered: number[] = selectedSeats.filter((seat) => seat !== tempSeatId);
+      const filtered: number[] = selectedSeats.filter((seat) => seat !== tempSeatId);
       setSelectedSeats(filtered);
     }
   }
@@ -90,9 +90,11 @@ export default function BookingPage() {
 
   function toggleDialog() {
     if (dialogRef.current) {
-      dialogRef.current.hasAttribute("open") ?
-        dialogRef.current.close() :
+      if (dialogRef.current.hasAttribute("open")) {
+        dialogRef.current.close()
+      } else {
         dialogRef.current.showModal();
+      }
     }
   }
 

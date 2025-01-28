@@ -5,7 +5,7 @@ import { useWindowSize } from 'react-use'
 import styles from './success-page.module.css'
 
 export default function SuccessPage() {
-    let { messageId } = useParams();
+    const { messageId } = useParams();
     const { width, height } = useWindowSize()
     const [message, setMessage] = useState<string>("");
 

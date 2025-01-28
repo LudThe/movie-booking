@@ -8,7 +8,7 @@ import styles from "./admin-page.module.css";
 
 export default function AdminPage() {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const [movies, setMovies] = useState<Movie[]>([]);
     const [selectedMovie, setSelectedMovie] = useState<Movie>();
 
@@ -24,7 +24,7 @@ export default function AdminPage() {
 
 
     function handleMovieSelect(e: React.ChangeEvent<HTMLSelectElement>) {
-        let tempMovie = movies.find((el) => el.id == e.target.value);
+        const tempMovie = movies.find((el) => el.id == e.target.value);
 
         setValue("title", tempMovie?.title);
         setValue("price", tempMovie?.price);

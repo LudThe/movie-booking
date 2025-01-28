@@ -15,7 +15,7 @@ type Props = {
 
 export default forwardRef<HTMLDialogElement, Props>(function BookingForm({ selectedMovie, selectedSeats, toggleDialog }, ref) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-    let navigate = useNavigate();
+    const navigate = useNavigate();
 
     async function onSubmit(data: FieldValues) {
         const newBooking: Booking = {
